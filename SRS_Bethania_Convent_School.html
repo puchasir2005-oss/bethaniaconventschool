@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRS — Bethania Convent School Website</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+        :root {
+            --navy: #1a1a1a;
+            --navy-light: #333333;
+            --gold: #d32f2f;
+            --gold-light: #ef5350;
+            --accent: #b71c1c;
+            --text: #2c2c2c;
+            --text-light: #5a5a5a;
+            --text-muted: #8a8a8a;
+            --bg: #ffffff;
+            --bg-alt: #f8f9fc;
+            --border: #e5e7eb;
+            --border-light: #f0f1f4;
+            --page-width: 210mm;
+            --page-height: 297mm;
+            --page-margin-top: 20mm;
+            --page-margin-bottom: 20mm;
+            --page-margin-left: 20mm;
+            --page-margin-right: 20mm;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 10pt;
+            line-height: 1.65;
+            color: var(--text);
+            background: #d0d0d0;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ============ A4 PAGE CONTAINER ============ */
+        .a4-page {
+            width: 210mm;
+            min-height: 297mm;
+            background: var(--bg);
+            margin: 10mm auto;
+            padding: 20mm 18mm 25mm 18mm;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+            page-break-after: always;
+            page-break-inside: auto;
+            position: relative;
+            box-sizing: border-box;
+            overflow: visible;
+        }
+
+        .a4-page.cover {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(160deg, #111111 0%, #1a1a1a 40%, #333333 100%);
+            color: white;
+            min-height: 297mm;
+        }
+
+        .a4-page:last-child {
+            page-break-after: auto;
+        }
+
+        @media print {
+            body {
+                background: white;
+                font-size: 9.5pt;
+                width: 210mm;
+                margin: 0;
+                padding: 0;
+            }
+            .a4-page {
+                margin: 0 !important;
+                padding: 20mm 18mm 25mm 18mm !important;
+                box-shadow: none !important;
+                width: 210mm !important;
+                min-height: 297mm !important;
+                height: auto !important;
+                border: none !important;
+                page-break-after: always;
+                page-break-inside: auto !important;
+                overflow: visible !important;
+            }
+            .a4-page.cover {
+                padding: 0 !important;
+                min-height: 297mm !important;
+            }
+            .no-print { display: none !important; }
+            table, tr, td, th { page-break-inside: avoid; }
+            h1, h2, h3 { page-break-after: avoid; }
+            .section { page-break-inside: auto; }
+        }
+
+        /* ============ COVER PAGE ============ */
+        .cover-border {
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(211, 47, 47, 0.4);
+            border-radius: 2px;
+            pointer-events: none;
+        }
+
+        .cover-border-inner {
+            position: absolute;
+            inset: 16px;
+            border: 1px solid rgba(211, 47, 47, 0.2);
+            border-radius: 2px;
+            pointer-events: none;
+        }
+
+        .cover-top-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+        }
+
+        .cover-logo-area {
+            margin-bottom: 50px;
+        }
+
+        .cover-doc-type {
+            font-size: 11pt;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .cover-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 32pt;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .cover-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .cover-subtitle {
+            font-size: 14pt;
+            color: rgba(255,255,255,0.7);
+            font-weight: 300;
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+        }
+
+        .cover-divider {
+            width: 80px;
+            height: 2px;
+            background: var(--gold);
+            margin: 0 auto 50px;
+        }
+
+        .cover-meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 60px;
+            text-align: left;
+            max-width: 520px;
+        }
+
+        .cover-meta-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cover-meta-label {
+            font-size: 7.5pt;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .cover-meta-value {
+            font-size: 10pt;
+            color: rgba(255,255,255,0.9);
+            font-weight: 400;
+        }
+
+        .cover-footer {
+            position: absolute;
+            bottom: 35px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        .cover-footer-text {
+            font-size: 8pt;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 1px;
+        }
+
+        .cover-confidential {
+            display: inline-block;
+            font-size: 7pt;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid rgba(200,144,46,0.4);
+            padding: 4px 16px;
+            margin-bottom: 10px;
+        }
+
+        /* ============ TOC PAGE ============ */
+        .toc-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 22pt;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .toc-sub {
+            font-size: 9pt;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--navy);
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            display: flex;
+            align-items: baseline;
+            padding: 10px 0;
+            border-bottom: 1px dotted var(--border);
+            font-size: 10.5pt;
+        }
+
+        .toc-num {
+            font-weight: 700;
+            color: var(--gold);
+            min-width: 30px;
+            font-size: 10pt;
+        }
+
+        .toc-label {
+            flex: 1;
+            color: var(--navy);
+            font-weight: 500;
+        }
+
+        /* ============ CONTENT PAGES ============ */
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-number {
+            font-size: 8pt;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        h1.section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20pt;
+            color: var(--navy);
+            margin-bottom: 6px;
+            line-height: 1.3;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--navy);
+        }
+
+        h2.sub-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 13pt;
+            color: var(--navy);
+            font-weight: 700;
+            margin: 24px 0 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h3.sub-sub-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 11pt;
+            color: var(--navy-light);
+            font-weight: 600;
+            margin: 20px 0 8px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .lead {
+            font-size: 10.5pt;
+            color: var(--text-light);
+            margin-bottom: 18px;
+        }
+
+        /* ============ TABLES ============ */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 14px 0 20px;
+            font-size: 9pt;
+        }
+
+        thead th {
+            background: var(--navy);
+            color: white;
+            font-weight: 600;
+            text-align: left;
+            padding: 9px 12px;
+            font-size: 8.5pt;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        thead th:first-child { border-radius: 4px 0 0 0; }
+        thead th:last-child { border-radius: 0 4px 0 0; }
+
+        tbody td {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: top;
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-alt);
+        }
+
+        .status-done {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        .status-warn {
+            color: #d97706;
+            font-weight: 600;
+        }
+
+        .status-todo {
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        /* ============ INFO BOXES ============ */
+        .info-box {
+            padding: 14px 18px;
+            border-radius: 6px;
+            margin: 16px 0;
+            font-size: 9.5pt;
+            line-height: 1.6;
+        }
+
+        .info-box.note {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            color: #1e40af;
+        }
+
+        .info-box.warning {
+            background: #fff7ed;
+            border-left: 4px solid #f59e0b;
+            color: #92400e;
+        }
+
+        .info-box.important {
+            background: #fef2f2;
+            border-left: 4px solid var(--accent);
+            color: #991b1b;
+        }
+
+        .info-box-label {
+            font-weight: 700;
+            font-size: 8pt;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        /* ============ LISTS ============ */
+        ul, ol {
+            margin: 8px 0 14px 22px;
+        }
+
+        li {
+            margin-bottom: 4px;
+            color: var(--text);
+        }
+
+        /* ============ CODE/MONOSPACE ============ */
+        code {
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 8.5pt;
+            background: var(--bg-alt);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: var(--accent);
+        }
+
+        .code-block {
+            background: #1a1a2e;
+            color: #e0e0e0;
+            padding: 14px 18px;
+            border-radius: 6px;
+            font-family: 'Consolas', monospace;
+            font-size: 8.5pt;
+            line-height: 1.7;
+            margin: 12px 0 18px;
+            overflow-x: auto;
+        }
+
+        .code-block .comment { color: #6a9955; }
+        .code-block .keyword { color: #c586c0; }
+        .code-block .string { color: #ce9178; }
+
+        /* ============ DIAGRAM BOX ============ */
+        .diagram-box {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 16px 0 20px;
+            text-align: center;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .flow-node {
+            background: var(--navy);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 8pt;
+            font-weight: 600;
+        }
+
+        .flow-arrow {
+            color: var(--gold);
+            font-size: 16pt;
+            font-weight: 300;
+        }
+
+        /* ============ SECTION DIVIDER ============ */
+        .section-divider {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 30px 0;
+        }
+
+        /* ============ PAGE HEADER/FOOTER ============ */
+        .page-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 25px;
+            font-size: 7.5pt;
+            color: var(--text-muted);
+        }
+
+        .page-header-bar .doc-title {
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        /* ============ CLIENT ACTION BOX ============ */
+        .action-box {
+            background: linear-gradient(135deg, #fef2f2, #fff7ed);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .action-box h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 12pt;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-box ol {
+            margin-left: 18px;
+        }
+
+        .action-box li {
+            margin-bottom: 8px;
+            color: var(--text);
+            font-size: 9.5pt;
+        }
+
+        /* ============ FOOTER BAR ============ */
+        .doc-footer {
+            margin-top: 40px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            font-size: 7.5pt;
+            color: var(--text-muted);
+        }
+
+        /* ============ PRINT BUTTON ============ */
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--navy);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 11pt;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body>
+
+<!-- PRINT BUTTON -->
+<button class="print-btn no-print" onclick="window.print()">
+    📄 Save as PDF
+</button>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<div class="a4-page cover">
+    <div class="cover-top-accent"></div>
+    <div class="cover-border"></div>
+    <div class="cover-border-inner"></div>
+
+    <div class="cover-logo-area">
+        <div class="cover-confidential">Confidential</div>
+    </div>
+
+    <div class="cover-doc-type">Software Requirements Specification</div>
+
+    <h1 class="cover-title">
+        Bethania Convent School<br>
+        <em>Official Website</em>
+    </h1>
+
+    <p class="cover-subtitle">Kot-Ise-Khan · Moga · Punjab · India</p>
+
+    <div class="cover-divider"></div>
+
+    <div class="cover-meta-grid">
+        <div class="cover-meta-item">
+            <div class="cover-meta-label">Prepared By</div>
+            <div class="cover-meta-value">Josephities NextWave Foundation</div>
+        </div>
+        <div class="cover-meta-item">
+            <div class="cover-meta-label">Prepared For</div>
+            <div class="cover-meta-value">Bethania Convent School</div>
+        </div>
+        <div class="cover-meta-item">
+            <div class="cover-meta-label">Document Date</div>
+            <div class="cover-meta-value">18 June 2026</div>
+        </div>
+        <div class="cover-meta-item">
+            <div class="cover-meta-label">Version</div>
+            <div class="cover-meta-value">1.0</div>
+        </div>
+        <div class="cover-meta-item">
+            <div class="cover-meta-label">Status</div>
+            <div class="cover-meta-value">Phase 1 — Informational Website</div>
+        </div>
+        <div class="cover-meta-item">
+            <div class="cover-meta-label">Classification</div>
+            <div class="cover-meta-value">Client Confidential</div>
+        </div>
+    </div>
+
+    <div class="cover-footer">
+        <div class="cover-footer-text">
+            © 2026 Josephities NextWave Foundation · All Rights Reserved
+        </div>
+    </div>
+</div>
+
+<!-- ==================== PAGE 2: TABLE OF CONTENTS ==================== -->
+<div class="a4-page">
+    <h1 class="toc-heading">Table of Contents</h1>
+    <p class="toc-sub">Document reference guide for all sections of this SRS</p>
+
+    <ol class="toc-list">
+        <li><span class="toc-num">01</span> <span class="toc-label">Introduction</span></li>
+        <li><span class="toc-num">02</span> <span class="toc-label">System Overview</span></li>
+        <li><span class="toc-num">03</span> <span class="toc-label">Technology Stack</span></li>
+        <li><span class="toc-num">04</span> <span class="toc-label">Functional Requirements</span></li>
+        <li><span class="toc-num">05</span> <span class="toc-label">Page-by-Page Feature Specification</span></li>
+        <li><span class="toc-num">06</span> <span class="toc-label">Navigation &amp; Layout System</span></li>
+        <li><span class="toc-num">07</span> <span class="toc-label">UI/UX Design Specifications</span></li>
+        <li><span class="toc-num">08</span> <span class="toc-label">Non-Functional Requirements</span></li>
+        <li><span class="toc-num">09</span> <span class="toc-label">Data Model</span></li>
+        <li><span class="toc-num">10</span> <span class="toc-label">Asset Inventory</span></li>
+        <li><span class="toc-num">11</span> <span class="toc-label">Deployment &amp; Environment</span></li>
+        <li><span class="toc-num">12</span> <span class="toc-label">Assumptions &amp; Dependencies</span></li>
+        <li><span class="toc-num">13</span> <span class="toc-label">Future Scope (Phase 2+)</span></li>
+        <li><span class="toc-num">14</span> <span class="toc-label">Glossary</span></li>
+    </ol>
+</div>
+
+
+<!-- ==================== PAGE 3: INTRODUCTION ==================== -->
+<div class="a4-page">
+    <div class="page-header-bar">
+        <span class="doc-title">SRS — Bethania Convent School Website</span>
+        <span>Josephities NextWave Foundation · v1.0</span>
+    </div>
+
+    <div class="section">
+        <div class="section-number">Section 01</div>
+        <h1 class="section-title">Introduction</h1>
+
+        <h2 class="sub-title">1.1 Purpose</h2>
+        <p>This Software Requirements Specification (SRS) document provides a comprehensive description of the <strong>Bethania Convent School official website</strong> — its features, technical architecture, functional and non-functional requirements, and design guidelines. It serves as the authoritative reference for the client to review, approve, and track all current and planned features.</p>
+
+        <h2 class="sub-title">1.2 Scope</h2>
+        <p>The website is a <strong>multi-page informational web application</strong> designed to:</p>
+        <ul>
+            <li>Present the school's identity, values, history, and motto to prospective parents and students</li>
+            <li>Showcase the campus, faculty, academic programs, sports, and co-curricular activities</li>
+            <li>Provide contact information and admission enquiry channels</li>
+            <li>Integrate social media presence (Instagram feed)</li>
+            <li>Deliver a premium, modern, and visually engaging user experience</li>
+        </ul>
+
+        <h2 class="sub-title">1.3 Intended Audience</h2>
+        <table>
+            <thead><tr><th>Audience</th><th>Use of This Document</th></tr></thead>
+            <tbody>
+                <tr><td>School Administration</td><td>Approve features, sign off on scope</td></tr>
+                <tr><td>Development Team</td><td>Build, test, and maintain the website</td></tr>
+                <tr><td>Designers</td><td>Reference for UI/UX consistency</td></tr>
+                <tr><td>QA / Testers</td><td>Validate features against requirements</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="sub-title">1.4 School Profile</h2>
+        <table>
+            <thead><tr><th>Field</th><th>Detail</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Full Name</strong></td><td>Bethania Convent School</td></tr>
+                <tr><td><strong>Location</strong></td><td>Kot-Ise-Khan, Moga District, Punjab, India</td></tr>
+                <tr><td><strong>Region</strong></td><td>Malwa Region, Punjab</td></tr>
+                <tr><td><strong>Run By</strong></td><td>Sisters of St. Martha (SMC), Pala, Kerala</td></tr>
+                <tr><td><strong>Patron Saint</strong></td><td>St. Martha of Bethany</td></tr>
+                <tr><td><strong>Motto</strong></td><td>"To Serve is Glory" / "Lighted for Life"</td></tr>
+                <tr><td><strong>Email</strong></td><td>bethaniaconventschool@gmail.com</td></tr>
+                <tr><td><strong>Instagram</strong></td><td>@bethaniaconventschool</td></tr>
+                <tr><td><strong>Academic Levels</strong></td><td>Primary School, Middle School, Senior Secondary</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- ==================== PAGE 4: SYSTEM OVERVIEW + TECH STACK ==================== -->
+<div class="a4-page">
+    <div class="page-header-bar">
+        <span class="doc-title">SRS — Bethania Convent School Website</span>
+        <span>Josephities NextWave Foundation · v1.0</span>
+    </div>
+
+    <div class="section">
+        <div class="section-number">Section 02</div>
+        <h1 class="section-title">System Overview</h1>
+
+        <h2 class="sub-title">2.1 Application Type</h2>
+        <p>Multi-page, server-rendered informational website with modern front-end animations and responsive design.</p>
+
+        <h2 class="sub-title">2.2 Architecture</h2>
+        <div class="diagram-box">
+            <div class="flow-diagram">
+                <span class="flow-node">Browser (Client)</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-node">Laravel Router</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-node">Blade Engine</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-node">Layout Template</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-node">Page Views</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-node">CSS + JS</span>
+            </div>
+        </div>
+
+        <h2 class="sub-title">2.3 Route Map</h2>
+        <table>
+            <thead><tr><th>Route</th><th>Method</th><th>View</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td><code>/</code></td><td>GET</td><td>welcome.blade.php</td><td>Home / Landing Page</td></tr>
+                <tr><td><code>/about</code></td><td>GET</td><td>about.blade.php</td><td>About the School</td></tr>
+                <tr><td><code>/vision</code></td><td>GET</td><td>vision.blade.php</td><td>Vision, Mission &amp; Motto</td></tr>
+                <tr><td><code>/programs</code></td><td>GET</td><td>programs.blade.php</td><td>Academic Programs &amp; Features</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="a4-page">
+    <div class="page-header-bar">
+        <span class="doc-title">SRS — Bethania Convent School Website</span>
+        <span>Josephities NextWave Foundation · v1.0</span>
+    </div>
+
+    <div class="section">
+        <div class="section-number">Section 03</div>
+        <h1 class="section-title">Technology Stack</h1>
+
+        <h2 class="sub-title">3.1 Backend</h2>
+        <table>
+            <thead><tr><th>Component</th><th>Technology</th><th>Version</th></tr></thead>
+            <tbody>
+                <tr><td>Framework</td><td>Laravel</td><td>12.x</td></tr>
+                <tr><td>Language</td><td>PHP</td><td>≥ 8.2</td></tr>
+                <tr><td>Database</td><td>SQLite</td><td>—</td></tr>
+                <tr><td>Session Driver</td><td>Database</td><td>—</td></tr>
+                <tr><td>Queue Driver</td><td>Database</td><td>—</td></tr>
+                <tr><td>Cache Store</td><td>Database</td><td>—</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="sub-title">3.2 Frontend</h2>
+        <table>
+            <thead><tr><th>Component</th><th>Technology</th></tr></thead>
+            <tbody>
+                <tr><td>Templating</td><td>Laravel Blade</td></tr>
+                <tr><td>Build Tool</td><td>Vite</td></tr>
+                <tr><td>Styling</td><td>Vanilla CSS (school.css — 41.7 KB)</td></tr>
+                <tr><td>Fonts</td><td>Google Fonts (Playfair Display, Inter, Cormorant Garamond)</td></tr>
+                <tr><td>JavaScript</td><td>Vanilla JS (inline in layout)</td></tr>
+                <tr><td>Icons</td><td>Inline SVG + Unicode Emoji</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- ==================== PAGE 5: FUNCTIONAL REQUIREMENTS (FR-01 to FR-04) ==================== -->
+<div class="a4-page">
+    <div class="page-header-bar">
+        <span class="doc-title">SRS — Bethania Convent School Website</span>
+        <span>Josephities NextWave Foundation · v1.0</span>
+    </div>
+
+    <div class="section">
+        <div class="section-number">Section 04</div>
+        <h1 class="section-title">Functional Requirements</h1>
+
+        <h2 class="sub-title">FR-01: Landing Page (Home)</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Requirement</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td>FR-01.1</td><td>Display full-screen hero section with campus background image</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-01.2</td><td>Show hero tagline: "Where Every Child is Lighted for Life"</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-01.3</td><td>Show hero subtitle describing the school's mission</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-01.4</td><td>Provide CTA buttons: "Explore Our School" and "Apply for Admission"</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-01.5</td><td>Display statistics bar (188+ Posts, 4 Faculty Regions, 8+ Sports, 100%)</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-01.6</td><td>Show motto banner: "To Serve is Glory" — St. Martha of Bethany</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-01.7</td><td>Display campus gallery section with 5 images in a grid layout</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-01.8</td><td>Display Instagram feed section with 5 campus life images</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-01.9</td><td>Show faculty regions section (Punjab, Kerala, Pune, Darjeeling)</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-01.10</td><td>Display sports &amp; athletics section with 8 disciplines</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-01.11</td><td>Show CTA section for admissions with email and phone links</td><td class="status-done">✅ Implemented</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="sub-title">FR-02: About Page</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Requirement</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td>FR-02.1</td><td>Display page header with title "About the School"</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-02.2</td><td>Present school history, heritage, and founding details</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-02.3</td><td>Describe the Sisters of St. Martha (SMC) congregation</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-02.4</td><td>Explain the school's ethos rooted in St. Martha of Bethany</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-02.5</td><td>Detail the campus physical environment and facilities</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-02.6</td><td>Describe the school's blend of tradition and modernity</td><td class="status-done">✅ Implemented</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="a4-page">
+    <div class="page-header-bar">
+        <span class="doc-title">SRS — Bethania Convent School Website</span>
+        <span>Josephities NextWave Foundation · v1.0</span>
+    </div>
+    
+    <div class="section">
+        <h2 class="sub-title">FR-03: Vision, Mission &amp; Motto Page</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Requirement</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td>FR-03.1</td><td>Display "Vision, Mission &amp; Motto" page header</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-03.2</td><td>Present the school motto: "LIGHTED FOR LIFE"</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-03.3</td><td>Present the school mission statement</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-03.4</td><td>Present the school vision statement with itemized goals</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-03.5</td><td>Closing: "At Bethania, we don't just teach—we illuminate"</td><td class="status-done">✅ Implemented</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="sub-title">FR-04: Programs Page</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Requirement</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td>FR-04.1</td><td>Page header: "Academic Excellence Meets Co-Curricular Brilliance"</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-04.2</td><td>Detail nationally sourced faculty from 4 regions</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-04.3</td><td>Describe Language &amp; Communication Hub</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-04.4</td><td>Describe Digital Infrastructure (AI Teach Lab, Computer Lab)</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-04.5</td><td>Describe Library facilities</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-04.6</td><td>Detail Creative &amp; Martial Arts</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-04.7</td><td>Detail Sports &amp; Athletic Programs</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-04.8</td><td>Describe Cultural &amp; Global Awareness celebrations</td><td class="status-done">✅ Implemented</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- ==================== PAGE 6: FR-05 to FR-07 ==================== -->
+<div class="a4-page">
+    <div class="page-header-bar">
+        <span class="doc-title">SRS — Bethania Convent School Website</span>
+        <span>Josephities NextWave Foundation · v1.0</span>
+    </div>
+
+    <div class="section">
+        <h2 class="sub-title">FR-05: Global Navigation</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Requirement</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td>FR-05.1</td><td>Fixed top navigation bar with school logo and name</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-05.2</td><td>"Tour Bethania" link navigating to About page</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-05.3</td><td>"Enquire" CTA button linking to contact/footer section</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-05.4</td><td>Hamburger menu button opening full-screen overlay</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-05.5</td><td>Full-screen overlay with primary nav links (7 items)</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-05.6</td><td>Overlay secondary nav: Academics (6 sub-links)</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-05.7</td><td>Overlay Quick Links (Contact, Admissions, Instagram)</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-05.8</td><td>Social media links (Instagram, Facebook, YouTube)</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-05.9</td><td>Close overlay on Escape key press</td><td class="status-done">✅ Implemented</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="sub-title">FR-06: Footer</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Requirement</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td>FR-06.1</td><td>Display school logo, name, and tagline</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-06.2</td><td>Quick Links column (6 links)</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-06.3</td><td>Academics column (6 links)</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-06.4</td><td>Contact Us column with address, email, Instagram</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-06.5</td><td>Social media icons (Instagram, Facebook, YouTube)</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-06.6</td><td>Copyright notice: "© 2026 Bethania Convent School"</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-06.7</td><td>Footer motto: "Lighted for Life"</td><td class="status-done">✅ Implemented</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="sub-title">FR-07: Interactive UI Components</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Requirement</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td>FR-07.1</td><td>Animated preloader with logo and "BETHANIA" letter reveal</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-07.2</td><td>Scroll progress bar at top of page</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-07.3</td><td>Scroll-to-top button with circular progress ring</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-07.4</td><td>Smart navbar: hide on scroll down, reveal on scroll up</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>FR-07.5</td><td>Smooth scrolling for same-page anchor links</td><td class="status-done">✅ Implemented</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- ==================== PAGE 7: PAGE-BY-PAGE SPEC ==================== -->
+<div class="a4-page">
+    <div class="page-header-bar">
+        <span class="doc-title">SRS — Bethania Convent School Website</span>
+        <span>Josephities NextWave Foundation · v1.0</span>
+    </div>
+
+    <div class="section">
+        <div class="section-number">Section 05</div>
+        <h1 class="section-title">Page-by-Page Feature Specification</h1>
+
+        <h2 class="sub-title">5.1 Home Page (<code>/</code>)</h2>
+        <p><strong>Page Flow:</strong></p>
+        <div class="diagram-box">
+            <div class="flow-diagram">
+                <span class="flow-node">Hero</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-node">Motto</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-node">Gallery</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-node">Instagram</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-node">Faculty</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-node">Sports</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-node">CTA</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-node">Footer</span>
+            </div>
+        </div>
+
+        <h3 class="sub-sub-title">Hero Section</h3>
+        <ul>
+            <li>Full-bleed background image (<code>hero-desk.png</code>) with overlay gradient</li>
+            <li>H1 headline with italic emphasis · Descriptive subtitle · Two CTA buttons · Statistics bar (4 items)</li>
+        </ul>
+
+        <h3 class="sub-sub-title">Campus Gallery &amp; Instagram</h3>
+        <ul>
+            <li>5-item mosaic grid with hover overlays, captions, and parallax scrolling</li>
+            <li>Instagram section: 5-item grid with camera emoji hover overlay</li>
+        </ul>
+
+        <h3 class="sub-sub-title">Faculty &amp; Sports</h3>
+        <ul>
+            <li>4 faculty region cards: Punjab, Kerala, Pune, Darjeeling</li>
+            <li>Split layout with 8 sports: Table Tennis, Basketball, Badminton, Cricket, Volleyball, Kho-Kho, Skating, Karate</li>
+        </ul>
+
+        <h2 class="sub-title">5.2 About Page (<code>/about</code>)</h2>
+        <ul>
+            <li>Page header with cream background · Long-form prose (8 paragraphs)</li>
+            <li>Topics: History, Congregation, Administration, Patron Saint, Motto, Service, Campus, Tradition</li>
+        </ul>
+
+        <h2 class="sub-title">5.3 Vision &amp; Mission Page (<code>/vision</code>)</h2>
+        <ul>
+            <li>Three subsections: Motto ("Lighted for Life"), Mission, Vision</li>
+            <li>Vision includes 3 bulleted goals · Closing statement centered in bold</li>
+        </ul>
+
+        <h2 class="sub-title">5.4 Programs Page (<code>/programs</code>)</h2>
+        <p>7 numbered feature sections:</p>
+        <ol>
+            <li>Diverse, Nationally Sourced Faculty</li>
+            <li>Advanced Language &amp; Communication Hub</li>
+            <li>Future-Ready Digital Infrastructure (AI Lab, Computer Lab)</li>
+            <li>Culture of Reading (Library)</li>
+            <li>Creative &amp; Martial Arts (Skating, Karate, Music, Dance)</li>
+            <li>Dynamic Sports &amp; Athletic Programs</li>
+            <li>Celebrating Culture &amp; Global Awareness</li>
+        </ol>
+    </div>
+</div>
+
+
+<!-- ==================== PAGE 8: NAVIGATION + UI/UX ==================== -->
+<div class="a4-page">
+    <div class="page-header-bar">
+        <span class="doc-title">SRS — Bethania Convent School Website</span>
+        <span>Josephities NextWave Foundation · v1.0</span>
+    </div>
+
+    <div class="section">
+        <div class="section-number">Section 06</div>
+        <h1 class="section-title">Navigation &amp; Layout System</h1>
+
+        <h2 class="sub-title">6.1 Master Layout (app.blade.php)</h2>
+        <table>
+            <thead><tr><th>Component</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Preloader</td><td>Animated logo + text reveal + progress line</td></tr>
+                <tr><td>Scroll Progress</td><td>Gold-colored bar at top of viewport</td></tr>
+                <tr><td>Navbar</td><td>Fixed top bar with logo, "Tour Bethania", "Enquire", Menu</td></tr>
+                <tr><td>Full-screen Menu</td><td>Two-column overlay (nav left, academics right)</td></tr>
+                <tr><td>Content Area</td><td>@yield('content') injection point</td></tr>
+                <tr><td>Footer</td><td>4-column grid: contact, links, social, copyright</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="sub-title">6.2 Navigation States</h2>
+        <table>
+            <thead><tr><th>State</th><th>Trigger</th><th>Behavior</th></tr></thead>
+            <tbody>
+                <tr><td>Default</td><td>Page load</td><td>Transparent background</td></tr>
+                <tr><td>Scrolled</td><td>scrollY &gt; 60px</td><td>Solid background</td></tr>
+                <tr><td>Hidden</td><td>Scrolling down past 300px</td><td>Slides up out of view</td></tr>
+                <tr><td>Revealed</td><td>Scrolling up</td><td>Slides back into view</td></tr>
+                <tr><td>Menu Open</td><td>Click "MENU"</td><td>Overlay opens, body locks</td></tr>
+                <tr><td>Menu Closed</td><td>"CLOSE" / Escape</td><td>Overlay closes, body unlocks</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="a4-page">
+    <div class="page-header-bar">
+        <span class="doc-title">SRS — Bethania Convent School Website</span>
+        <span>Josephities NextWave Foundation · v1.0</span>
+    </div>
+
+    <div class="section">
+        <div class="section-number">Section 07</div>
+        <h1 class="section-title">UI/UX Design Specifications</h1>
+
+        <h2 class="sub-title">7.1 Typography</h2>
+        <table>
+            <thead><tr><th>Usage</th><th>Font Family</th><th>Weights</th></tr></thead>
+            <tbody>
+                <tr><td>Headings</td><td>Playfair Display</td><td>400–700, Italic</td></tr>
+                <tr><td>Body Text</td><td>Inter</td><td>300–700</td></tr>
+                <tr><td>Accents</td><td>Cormorant Garamond</td><td>300–600, Italic</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="sub-title">7.2 Animation System</h2>
+        <table>
+            <thead><tr><th>Animation</th><th>Trigger</th><th>Effect</th></tr></thead>
+            <tbody>
+                <tr><td>Preloader</td><td>Page load</td><td>Logo → text → line → slide up</td></tr>
+                <tr><td>Fade-up</td><td>Scroll into view</td><td>Translate up + fade in</td></tr>
+                <tr><td>Split-text</td><td>Scroll into view</td><td>Headings reveal line-by-line</td></tr>
+                <tr><td>Parallax</td><td>Scroll + mouse</td><td>3D depth shifting</td></tr>
+                <tr><td>Card tilt</td><td>Mouse hover</td><td>Subtle rotation toward cursor</td></tr>
+                <tr><td>Navbar hide</td><td>Scroll direction</td><td>Hides down, shows up</td></tr>
+                <tr><td>Progress ring</td><td>Page scroll</td><td>SVG ring fills proportionally</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- ==================== PAGE 9: NON-FUNCTIONAL REQUIREMENTS ==================== -->
+<div class="a4-page">
+    <div class="page-header-bar">
+        <span class="doc-title">SRS — Bethania Convent School Website</span>
+        <span>Josephities NextWave Foundation · v1.0</span>
+    </div>
+
+    <div class="section">
+        <div class="section-number">Section 08</div>
+        <h1 class="section-title">Non-Functional Requirements</h1>
+
+        <h2 class="sub-title">NFR-01: Performance</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Requirement</th><th>Target</th></tr></thead>
+            <tbody>
+                <tr><td>NFR-01.1</td><td>First Contentful Paint (FCP)</td><td>&lt; 2.0 seconds</td></tr>
+                <tr><td>NFR-01.2</td><td>Total page weight optimization</td><td>Optimize images</td></tr>
+                <tr><td>NFR-01.3</td><td>No external JS dependencies</td><td class="status-done">✅ Met</td></tr>
+                <tr><td>NFR-01.4</td><td>RequestAnimationFrame for scroll handlers</td><td class="status-done">✅ Met</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="sub-title">NFR-02: SEO</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Requirement</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td>NFR-02.1</td><td>Descriptive title tag</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>NFR-02.2</td><td>Meta description</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>NFR-02.3</td><td>Semantic HTML5</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>NFR-02.4</td><td>Alt text on all images</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>NFR-02.5</td><td>Single h1 per page</td><td class="status-done">✅ Implemented</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="sub-title">NFR-03: Accessibility</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Requirement</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td>NFR-03.1</td><td>aria-label on icon-only buttons</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>NFR-03.2</td><td>Keyboard navigation (Escape)</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>NFR-03.3</td><td>WCAG AA color contrast</td><td class="status-warn">⚠️ To verify</td></tr>
+                <tr><td>NFR-03.4</td><td>Focus management on modals</td><td class="status-warn">⚠️ To verify</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="a4-page">
+    <div class="page-header-bar">
+        <span class="doc-title">SRS — Bethania Convent School Website</span>
+        <span>Josephities NextWave Foundation · v1.0</span>
+    </div>
+
+    <div class="section">
+        <h2 class="sub-title">NFR-04: Browser Compatibility</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Requirement</th></tr></thead>
+            <tbody>
+                <tr><td>NFR-04.1</td><td>Chrome, Firefox, Safari, Edge (latest 2 versions)</td></tr>
+                <tr><td>NFR-04.2</td><td>Mobile browsers (iOS Safari, Chrome for Android)</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="sub-title">NFR-05: Security</h2>
+        <table>
+            <thead><tr><th>ID</th><th>Requirement</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td>NFR-05.1</td><td>CSRF protection via Laravel</td><td class="status-done">✅ Framework default</td></tr>
+                <tr><td>NFR-05.2</td><td>rel="noopener" on external links</td><td class="status-done">✅ Implemented</td></tr>
+                <tr><td>NFR-05.3</td><td>No sensitive data in client code</td><td class="status-done">✅ Met</td></tr>
+                <tr><td>NFR-05.4</td><td>HTTPS enforcement (production)</td><td class="status-todo">🔲 To configure</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- ==================== PAGE 10: DATA MODEL + ASSETS ==================== -->
+<div class="a4-page">
+    <div class="page-header-bar">
+        <span class="doc-title">SRS — Bethania Convent School Website</span>
+        <span>Josephities NextWave Foundation · v1.0</span>
+    </div>
+
+    <div class="section">
+        <div class="section-number">Section 09</div>
+        <h1 class="section-title">Data Model</h1>
+
+        <p>The application uses <strong>SQLite</strong> with Laravel's default tables. No custom domain models exist yet.</p>
+        <table>
+            <thead><tr><th>Table</th><th>Purpose</th><th>Custom?</th></tr></thead>
+            <tbody>
+                <tr><td><code>users</code></td><td>User accounts (name, email, password)</td><td>No (default)</td></tr>
+                <tr><td><code>password_reset_tokens</code></td><td>Password reset workflow</td><td>No (default)</td></tr>
+                <tr><td><code>sessions</code></td><td>Server-side session storage</td><td>No (default)</td></tr>
+                <tr><td><code>cache</code></td><td>Database-backed cache</td><td>No (default)</td></tr>
+                <tr><td><code>jobs / failed_jobs</code></td><td>Queue system</td><td>No (default)</td></tr>
+            </tbody>
+        </table>
+        <div class="info-box note">
+            <div class="info-box-label">ℹ️ Note</div>
+            Phase 1 is a <strong>static informational website</strong>. All content is hardcoded in Blade templates. No CMS or custom models exist yet.
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-number">Section 10</div>
+        <h1 class="section-title">Asset Inventory</h1>
+
+        <h2 class="sub-title">10.1 Image Assets (/public/images/)</h2>
+        <table>
+            <thead><tr><th>Filename</th><th>Size</th><th>Used In</th></tr></thead>
+            <tbody>
+                <tr><td>hero-desk.png</td><td>2.2 MB</td><td>Home hero background</td></tr>
+                <tr><td>school_logo.png</td><td>1.2 MB</td><td>Navbar, Preloader, Footer</td></tr>
+                <tr><td>school_building.png</td><td>1.1 MB</td><td>Campus gallery</td></tr>
+                <tr><td>campus_hero.png</td><td>923 KB</td><td>Campus gallery</td></tr>
+                <tr><td>students_activities.png</td><td>1.0 MB</td><td>Gallery, Instagram, Sports</td></tr>
+                <tr><td>classroom_modern.png</td><td>994 KB</td><td>Gallery, Instagram</td></tr>
+                <tr><td>event1.png / event2.png / event3.png</td><td>~3.0 MB</td><td>Gallery, Instagram feed</td></tr>
+            </tbody>
+        </table>
+        <div class="info-box warning">
+            <div class="info-box-label">⚠️ Warning</div>
+            <strong>Total image payload: ~10.5 MB (unoptimized).</strong> WebP conversion, compression, and lazy loading are strongly recommended before production.
+        </div>
+
+        <h2 class="sub-title">10.2 Stylesheets &amp; JavaScript</h2>
+        <table>
+            <thead><tr><th>File</th><th>Size</th><th>Purpose</th></tr></thead>
+            <tbody>
+                <tr><td>public/css/school.css</td><td>41.7 KB</td><td>All site styles</td></tr>
+                <tr><td>Inline JS (app.blade.php)</td><td>~246 lines</td><td>All interactive behaviors</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- ==================== PAGE 11: DEPLOYMENT + ASSUMPTIONS ==================== -->
+<div class="a4-page">
+    <div class="page-header-bar">
+        <span class="doc-title">SRS — Bethania Convent School Website</span>
+        <span>Josephities NextWave Foundation · v1.0</span>
+    </div>
+
+    <div class="section">
+        <div class="section-number">Section 11</div>
+        <h1 class="section-title">Deployment &amp; Environment</h1>
+
+        <h2 class="sub-title">11.1 Environment Configuration</h2>
+        <table>
+            <thead><tr><th>Setting</th><th>Development</th><th>Production</th></tr></thead>
+            <tbody>
+                <tr><td><code>APP_ENV</code></td><td>local</td><td>production</td></tr>
+                <tr><td><code>APP_DEBUG</code></td><td>true</td><td>false</td></tr>
+                <tr><td><code>APP_URL</code></td><td>http://localhost</td><td>https://bethaniaconventschool.com</td></tr>
+                <tr><td><code>DB_CONNECTION</code></td><td>sqlite</td><td>mysql / postgresql</td></tr>
+                <tr><td><code>CACHE_STORE</code></td><td>database</td><td>redis (recommended)</td></tr>
+                <tr><td><code>MAIL_MAILER</code></td><td>log</td><td>smtp (configured)</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="sub-title">11.2 Commands</h2>
+        <div class="code-block">
+            <span class="comment"># Development (starts server, queue, logs, Vite concurrently):</span><br>
+            <span class="keyword">composer</span> dev<br><br>
+            <span class="comment"># Production build:</span><br>
+            <span class="keyword">composer</span> setup
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-number">Section 12</div>
+        <h1 class="section-title">Assumptions &amp; Dependencies</h1>
+
+        <h2 class="sub-title">12.1 Assumptions</h2>
+        <ol>
+            <li>All page content is provided by school administration and is final</li>
+            <li>No user registration or dynamic content required in Phase 1</li>
+            <li>School's founding year (<code>[Year]</code>) will be provided by client</li>
+            <li>Phone number (<code>+911234567890</code>) is a placeholder</li>
+            <li>Facebook/YouTube links are placeholders pending actual URLs</li>
+            <li>Academic sub-pages are navigation placeholders for future implementation</li>
+        </ol>
+
+        <h2 class="sub-title">12.2 External Dependencies</h2>
+        <table>
+            <thead><tr><th>Dependency</th><th>Type</th><th>Purpose</th></tr></thead>
+            <tbody>
+                <tr><td>Google Fonts CDN</td><td>External</td><td>Typography</td></tr>
+                <tr><td>Instagram</td><td>External</td><td>Social media presence</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- ==================== PAGE 12: FUTURE SCOPE + GLOSSARY + ACTION ==================== -->
+<div class="a4-page">
+    <div class="page-header-bar">
+        <span class="doc-title">SRS — Bethania Convent School Website</span>
+        <span>Josephities NextWave Foundation · v1.0</span>
+    </div>
+
+    <div class="section">
+        <div class="section-number">Section 13</div>
+        <h1 class="section-title">Future Scope (Phase 2+)</h1>
+
+        <h2 class="sub-title">Phase 2 — Content &amp; Interactivity</h2>
+        <table>
+            <thead><tr><th>Feature</th><th>Priority</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Online Admission Form</td><td><strong>High</strong></td><td>Enquiry form with email notification</td></tr>
+                <tr><td>Contact Form</td><td><strong>High</strong></td><td>General enquiry with validation &amp; CAPTCHA</td></tr>
+                <tr><td>Dynamic CMS</td><td><strong>High</strong></td><td>Admin panel for text, images, announcements</td></tr>
+                <tr><td>Academic Pages</td><td>Medium</td><td>Dedicated pages per academic level</td></tr>
+                <tr><td>Gallery Management</td><td>Medium</td><td>Admin-uploadable photo/video gallery</td></tr>
+                <tr><td>News &amp; Announcements</td><td>Medium</td><td>Blog/news section for updates</td></tr>
+                <tr><td>Fee Structure</td><td>Medium</td><td>Fee details per academic level</td></tr>
+                <tr><td>Faculty Directory</td><td>Low</td><td>Teacher profiles with photos</td></tr>
+            </tbody>
+        </table>
+
+        <h2 class="sub-title">Phase 3 — Advanced Features</h2>
+        <table>
+            <thead><tr><th>Feature</th><th>Priority</th><th>Description</th></tr></thead>
+            <tbody>
+                <tr><td>Student/Parent Portal</td><td><strong>High</strong></td><td>Login for grades, attendance, notices</td></tr>
+                <tr><td>Result Management</td><td><strong>High</strong></td><td>Online results with grade cards</td></tr>
+                <tr><td>Attendance Tracking</td><td>Medium</td><td>Digital attendance for parents</td></tr>
+                <tr><td>Event Calendar</td><td>Medium</td><td>Interactive school calendar</td></tr>
+                <tr><td>Multi-language</td><td>Low</td><td>Punjabi &amp; Hindi translations</td></tr>
+                <tr><td>Mobile App</td><td>Low</td><td>Native Android/iOS companion</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-number">Section 14</div>
+        <h1 class="section-title">Glossary</h1>
+        <table>
+            <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Blade</strong></td><td>Laravel's templating engine for composing views</td></tr>
+                <tr><td><strong>CTA</strong></td><td>Call to Action — a button prompting user engagement</td></tr>
+                <tr><td><strong>CSRF</strong></td><td>Cross-Site Request Forgery — a security attack vector</td></tr>
+                <tr><td><strong>Parallax</strong></td><td>Background moves slower than foreground on scroll</td></tr>
+                <tr><td><strong>SMC</strong></td><td>Sisters of St. Martha's Congregation</td></tr>
+                <tr><td><strong>Vite</strong></td><td>Modern frontend build tool for JS/CSS bundling</td></tr>
+                <tr><td><strong>WCAG</strong></td><td>Web Content Accessibility Guidelines</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="action-box">
+        <h3>⚡ Client Action Required</h3>
+        <ol>
+            <li>Confirm/provide the school's <strong>founding year</strong> (currently <code>[Year]</code> placeholder)</li>
+            <li>Provide actual <strong>phone number</strong> (currently <code>+911234567890</code>)</li>
+            <li>Provide <strong>Facebook</strong> and <strong>YouTube</strong> page URLs (currently <code>#</code> placeholders)</li>
+            <li>Approve or request changes to the feature scope outlined above</li>
+            <li>Confirm <strong>domain name</strong> for production deployment</li>
+            <li>Review image optimization recommendations (10.5 MB is too heavy for production)</li>
+            <li>Provide actual <strong>photographs</strong> of the school (campus, classrooms, events, faculty, sports) to replace placeholders</li>
+        </ol>
+    </div>
+
+    <div class="doc-footer">
+        <span>© 2026 Josephities NextWave Foundation · All Rights Reserved</span>
+        <span>SRS v1.0 · 18 June 2026 · Bethania Convent School</span>
+    </div>
+</div>
+
+</body>
+</html>
