@@ -14,9 +14,9 @@
 <!-- GALLERY SECTION -->
 <section class="gallery-page-section" style="padding: var(--spacing-xxl) 0; background: var(--color-bg);">
     <div class="container">
-        
+
         <div class="gallery-grid-full fade-up fade-up-delay-2" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--spacing-md);">
-            
+
             @php
                 $images = [
                     'school 3.jpeg' => 'School Building',
@@ -50,16 +50,27 @@
                     'reception.jpeg' => 'Reception Area',
                     'teachers.jpeg' => 'Our Teachers',
                     'rank holders.jpeg' => 'Rank Holders',
-                    'ek ped.jpeg' => 'Plantation Drive'
+                    'ek ped.jpeg' => 'Plantation Drive' ,
+                    'science exihibition.mp4'=> 'science exihibition' ,
+                    'teachers day.mp4'=> 'teachers day',
+                    'memory test.mp4'=>'memory test'
+
                 ];
             @endphp
 
             @foreach($images as $image => $alt)
-            <div class="gallery-item-full" style="border-radius: 12px; overflow: hidden; height: 250px; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer;" onclick="openLightbox('/images/{{ $image }}', '{{ $alt }}')">
-                <img src="/images/{{ $image }}" alt="{{ $alt }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" loading="lazy">
+            @php
+                $isVideo = preg_match('/\.(mp4|webm|ogg)$/i', $image);
+            @endphp
+            <div class="gallery-item-full" style="border-radius: 12px; overflow: hidden; height: 250px; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer;" onclick="openLightbox('/images/{{ $image }}', '{{ addslashes($alt) }}', {{ $isVideo ? 'true' : 'false' }})">
+                @if($isVideo)
+                    <video src="/images/{{ $image }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.play();" onmouseout="this.style.transform='scale(1)'; this.pause();" muted loop playsinline></video>
+                @else
+                    <img src="/images/{{ $image }}" alt="{{ $alt }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" loading="lazy">
+                @endif
             </div>
             @endforeach
-            
+
         </div>
     </div>
 </section>
@@ -67,13 +78,24 @@
 <!-- LIGHTBOX (Simple implementation) -->
 <div id="lightbox" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; flex-direction: column;">
     <span style="position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; font-weight: bold; cursor: pointer;" onclick="closeLightbox()">&times;</span>
-    <img id="lightbox-img" src="" alt="" style="max-width: 90%; max-height: 80vh; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+    <img id="lightbox-img" src="" alt="" style="max-width: 90%; max-height: 80vh; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5); display: none;">
+    <video id="lightbox-video" src="" controls style="max-width: 90%; max-height: 80vh; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5); display: none;"></video>
     <div id="lightbox-caption" style="color: white; margin-top: 15px; font-size: 1.2rem; font-family: var(--font-body);"></div>
 </div>
 
 <script>
-    function openLightbox(src, alt) {
-        document.getElementById('lightbox-img').src = src;
+    function openLightbox(src, alt, isVideo = false) {
+        if (isVideo) {
+            document.getElementById('lightbox-img').style.display = 'none';
+            document.getElementById('lightbox-video').src = src;
+            document.getElementById('lightbox-video').style.display = 'block';
+            document.getElementById('lightbox-video').play();
+        } else {
+            document.getElementById('lightbox-video').style.display = 'none';
+            document.getElementById('lightbox-video').pause();
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-img').style.display = 'block';
+        }
         document.getElementById('lightbox-caption').textContent = alt;
         document.getElementById('lightbox').style.display = 'flex';
         document.body.style.overflow = 'hidden';
@@ -82,6 +104,7 @@
     function closeLightbox() {
         document.getElementById('lightbox').style.display = 'none';
         document.body.style.overflow = 'auto';
+        document.getElementById('lightbox-video').pause(); // Stop video playback
     }
 
     // Close lightbox on clicking outside the image
@@ -90,7 +113,7 @@
             closeLightbox();
         }
     });
-    
+
     // Close on escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === "Escape" && document.getElementById('lightbox').style.display === 'flex') {
