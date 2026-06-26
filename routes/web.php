@@ -17,3 +17,7 @@ Route::get('/vision', function () {
 Route::get('/programs', function () {
     return view('programs');
 });
+
+Route::get('/gallery', function () {
+    return view('gallery');
+});

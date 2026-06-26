@@ -82,6 +82,7 @@
                     <a href="/about" onclick="closeMenuOverlay()">About</a>
                     <a href="/vision" onclick="closeMenuOverlay()">Vision &amp; Mission</a>
                     <a href="/programs" onclick="closeMenuOverlay()">Programs</a>
+                    <a href="/gallery" onclick="closeMenuOverlay()">Gallery</a>
                     <a href="/#campus" onclick="closeMenuOverlay()">Campus</a>
                     <a href="/#sports" onclick="closeMenuOverlay()">Sports</a>
                     <a href="#contact" onclick="closeMenuOverlay()">Admissions</a>
@@ -183,6 +184,7 @@
                         <li><a href="/about">About the School</a></li>
                         <li><a href="/vision">Vision &amp; Mission</a></li>
                         <li><a href="/programs">Our Programs</a></li>
+                        <li><a href="/gallery">Gallery</a></li>
                         <li><a href="/#campus">Campus Life</a></li>
                         <li><a href="/#sports">Sports</a></li>
                         <li><a href="#contact">Admissions</a></li>

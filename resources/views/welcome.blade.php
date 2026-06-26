@@ -90,31 +90,32 @@
     </div>
 </section>
 
-<!-- INSTAGRAM FEED SECTION -->
-<section class="instagram-section">
+<!-- GALLERY PREVIEW SECTION -->
+<section class="gallery-preview-section" style="padding: var(--spacing-xxl) 0; background: var(--color-white);">
     <div class="container">
-        <div class="instagram-header">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--spacing-xl); flex-wrap: wrap; gap: 1rem;">
             <div>
                 <div class="section-eyebrow fade-up">Latest from Campus</div>
                 <h2 class="section-title fade-up fade-up-delay-1" style="margin-bottom:0;">Life at <em>Bethania</em></h2>
             </div>
-            <a href="https://www.instagram.com/bethaniaconventschool" target="_blank" rel="noopener" class="instagram-link fade-up">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                &#64;bethaniaconventschool
+            <a href="/gallery" class="btn btn-outline fade-up">
+                View Full Gallery
             </a>
         </div>
 
-        <!-- DYNAMIC INSTAGRAM WIDGET CONTAINER -->
-        <!-- 
-            INSTRUCTIONS: 
-            1. Go to lightwidget.com or elfsight.com 
-            2. Connect your @bethaniaconventschool account
-            3. Paste the provided embed script/iframe exactly below this line:
-        -->
-        <div class="instagram-dynamic-widget fade-up" style="min-height: 400px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.02); border-radius: 12px; margin-top: 2rem; border: 2px dashed #ccc; text-align: center;">
-            <p style="color: #666; font-family: var(--font-body); font-weight: 500;">
-                📸 Paste your LightWidget or Elfsight script code here!
-            </p>
+        <div class="gallery-preview-grid fade-up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--spacing-md);">
+            <div class="gallery-preview-item" style="border-radius: 12px; overflow: hidden; height: 250px;">
+                <img src="/images/school 4.jpeg" alt="School Activity" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </div>
+            <div class="gallery-preview-item" style="border-radius: 12px; overflow: hidden; height: 250px;">
+                <img src="/images/chemistry lab.jpeg" alt="Chemistry Lab" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </div>
+            <div class="gallery-preview-item" style="border-radius: 12px; overflow: hidden; height: 250px;">
+                <img src="/images/graduation ceremony.jpeg" alt="Graduation Ceremony" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </div>
+            <div class="gallery-preview-item" style="border-radius: 12px; overflow: hidden; height: 250px;">
+                <img src="/images/fancy dress cometition.jpeg" alt="Fancy Dress Competition" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            </div>
         </div>
     </div>
 </section>
