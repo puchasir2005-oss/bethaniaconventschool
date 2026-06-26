@@ -5,8 +5,8 @@
 <!-- PAGE HEADER -->
 <div class="page-header" style="background-color: var(--color-primary-dark); color: white; padding: var(--spacing-xxl) 0; text-align: center; margin-top: 70px;">
     <div class="container">
-        <h1 class="page-title fade-up" style="font-size: 3rem; margin-bottom: 1rem; color: white;">School Gallery</h1>
-        <p class="page-subtitle fade-up fade-up-delay-1" style="font-size: 1.25rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">
+        <h1 class="page-title" style="font-size: 3rem; margin-bottom: 1rem; color: white;">School Gallery</h1>
+        <p class="page-subtitle" style="font-size: 1.25rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">
             A glimpse into the vibrant life, events, and facilities at Bethania Convent School.
         </p>
     </div>
@@ -16,7 +16,7 @@
 <section class="gallery-page-section" style="padding: var(--spacing-xxl) 0; background: var(--color-bg);">
     <div class="container">
 
-        <div class="gallery-grid-full fade-up fade-up-delay-2" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--spacing-md);">
+        <div class="gallery-grid-full" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--spacing-md);">
 
             @php
                 $images = [
