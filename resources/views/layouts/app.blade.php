@@ -211,6 +211,10 @@
                             India</span>
                     </div>
                     <div class="footer-contact-item">
+                        <span class="footer-contact-icon">&#128222;</span>
+                        <span class="footer-contact-text">+91 12345 67890<br>(Update with actual number)</span>
+                    </div>
+                    <div class="footer-contact-item">
                         <span class="footer-contact-icon">&#9993;</span>
                         <span class="footer-contact-text">bethaniaconventschool<br>&#64;gmail.com</span>
                     </div>
