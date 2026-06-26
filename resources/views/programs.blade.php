@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@push('body-class', 'inner-page')
 
 @section('content')
 <div class="page-header" style="padding: 140px 0 60px; background: var(--cream); text-align: center;">

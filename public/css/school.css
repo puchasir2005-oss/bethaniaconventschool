@@ -222,6 +222,30 @@ a {
     line-height: 1;
 }
 
+/* Inner page navbar: dark text initially, white after scroll */
+.inner-page .navbar .school-name {
+    color: #444;
+    transition: color 0.35s ease;
+}
+.inner-page .navbar .school-subtitle {
+    color: #888;
+    transition: color 0.35s ease;
+}
+.inner-page .navbar .nav-action-link {
+    color: #444;
+    transition: color 0.35s ease;
+}
+/* When scrolled, revert to white (dark navbar bg is active) */
+.inner-page .navbar.scrolled .school-name {
+    color: var(--white);
+}
+.inner-page .navbar.scrolled .school-subtitle {
+    color: var(--gold);
+}
+.inner-page .navbar.scrolled .nav-action-link {
+    color: var(--white);
+}
+
 /* Right-side action buttons */
 .navbar-actions {
     display: flex;
@@ -635,8 +659,19 @@ a {
     max-width: 520px;
     line-height: 1.7;
     margin-bottom: 2.5rem;
+    text-align: justify;
     opacity: 0;
     animation: fadeUp 0.8s ease 2.8s forwards;
+}
+
+/* Justified text for all content paragraphs */
+.section-lead,
+.region-desc,
+.cta-text,
+.page-content p,
+.about-text p,
+.footer-tagline {
+    text-align: justify;
 }
 .hero-actions {
     display: flex;
@@ -1856,18 +1891,36 @@ section {
         padding: 5.5rem 2rem 2rem;
     }
     .hero-bg img {
-        height: 80%;
-        object-position: 70% 0%;
+        height: 100%;
+        object-position: center center;
     }
     .hero-content {
-        padding: calc(var(--nav-height) + 1rem) 1.5rem 2rem;
+        padding: 0 1.5rem 1.5rem;
     }
     .hero-title {
-        font-size: clamp(2.5rem, 10vw, 4rem);
-        line-height: 1.1;
+        font-size: clamp(1.8rem, 8vw, 2.8rem);
+        line-height: 1.15;
+        max-width: 100%;
     }
     .hero-subtitle {
-        font-size: 1rem;
+        font-size: 0.9rem;
+        max-width: 100%;
+        margin-bottom: 1.5rem;
+    }
+    .hero-stats {
+        position: relative;
+        width: 100%;
+        margin-top: 1rem;
+        border-radius: 0;
+        background: rgba(26, 26, 26, 0.95);
+    }
+    .hero {
+        max-height: none;
+        min-height: 100vh;
+        height: auto;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-end;
     }
     .about-grid,
     .sports-layout {
@@ -1918,21 +1971,6 @@ section {
     .footer-bottom {
         flex-direction: column;
         text-align: center;
-    }
-    .hero-stats {
-        position: relative;
-        width: 100%;
-        margin-top: 2rem;
-        border-radius: 0;
-        background: rgba(26, 26, 26, 0.95);
-    }
-    .hero {
-        max-height: none;
-        min-height: 100vh;
-        height: auto;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: flex-end;
     }
 }
 

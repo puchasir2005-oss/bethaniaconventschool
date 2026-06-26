@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@push('body-class', 'inner-page')
 
 @section('content')
 <!-- PAGE HEADER -->
@@ -15,7 +16,7 @@
 <section class="gallery-page-section" style="padding: var(--spacing-xxl) 0; background: var(--color-bg);">
     <div class="container">
 
-        <div class="gallery-grid-full fade-up fade-up-delay-2" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--spacing-md);">
+        <div class="gallery-grid-full fade-up fade-up-delay-2" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--spacing-md);">
 
             @php
                 $images = [
@@ -51,9 +52,12 @@
                     'teachers.jpeg' => 'Our Teachers',
                     'rank holders.jpeg' => 'Rank Holders',
                     'ek ped.jpeg' => 'Plantation Drive' ,
-                    'science exihibition.mp4'=> 'science exihibition' ,
-                    'teachers day.mp4'=> 'teachers day',
-                    'memory test.mp4'=>'memory test'
+                    'science exihibition.mp4'=> 'Science Exhibition',
+                    'teachers day.mp4'=> 'Teachers Day',
+                    'memory test.mp4'=>'Memory Test',
+                    'colouring competion.mp4'=>'Colouring Competition',
+                    'flag competition.mp4'=>'Flag Competition',
+                    'science exibition.mp4'=>'Science Exhibition'
 
                 ];
             @endphp
@@ -62,9 +66,12 @@
             @php
                 $isVideo = preg_match('/\.(mp4|webm|ogg)$/i', $image);
             @endphp
-            <div class="gallery-item-full" style="border-radius: 12px; overflow: hidden; height: 250px; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer;" onclick="openLightbox('/images/{{ $image }}', '{{ addslashes($alt) }}', {{ $isVideo ? 'true' : 'false' }})">
+            <div class="gallery-item-full" style="position: relative; border-radius: 12px; overflow: hidden; height: 250px; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer;" onclick="openLightbox('/images/{{ $image }}', '{{ $alt }}', {{ $isVideo ? 'true' : 'false' }})">
                 @if($isVideo)
-                    <video src="/images/{{ $image }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.play();" onmouseout="this.style.transform='scale(1)'; this.pause();" muted loop playsinline></video>
+                    <video src="/images/{{ $image }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause()"></video>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: rgba(0,0,0,0.6); border-radius: 50%; display: flex; align-items: center; justify-content: center; pointer-events: none;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+                    </div>
                 @else
                     <img src="/images/{{ $image }}" alt="{{ $alt }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" loading="lazy">
                 @endif
