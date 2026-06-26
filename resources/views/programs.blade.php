@@ -8,7 +8,7 @@
 </div>
 
 <section class="page-content" style="padding: 60px 0 100px;">
-    <div class="container" style="max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 1.1rem; color: var(--text-mid);">
+    <div class="container" style="max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 0.95rem; color: var(--text-mid); text-align: justify;">
         <p class="">At Bethania Convent School, we believe that true education nurtures both the mind and the character. Our holistic approach places equal importance on stellar academic foundations and dynamic co-curricular activities. We are committed to shaping confident, future-ready individuals by providing an environment rich in technology, diverse perspectives, and physical development.</p>
         <p class="" style="margin-top: 1rem;">Here are the premium features that make learning at Bethania a unique and transformative experience:</p>
 

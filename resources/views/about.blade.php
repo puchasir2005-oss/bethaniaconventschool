@@ -8,7 +8,7 @@
 </div>
 
 <section class="page-content" style="padding: 60px 0 100px;">
-    <div class="container" style="max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 1.1rem; color: var(--text-mid);">
+    <div class="container" style="max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 0.95rem; color: var(--text-mid); text-align: justify;">
         <p class="">Nestled in the vibrant heart of the Malwa region, Bethania Convent School stands as a beacon of academic excellence, character formation, and holistic development. Located in the bustling town of Kot-Ise-Khan within the Moga district of Punjab, the institution has been dedicated to nurturing young minds and shaping the leaders of tomorrow since its inception in [Year].</p>
         <p class="-delay-1" style="margin-top: 1.5rem;">Bethania Convent School is proudly owned by the prestigious religious congregation of the Sisters of St. Martha, based in Pala, Kerala. The Sisters of St. Martha's Congregation (SMC) is a Major Archiepiscopal Religious Congregation belonging to the rich and ancient spiritual tradition of the Syro-Malabar Rite.</p>
         <p class="" style="margin-top: 1.5rem;">The overall administration and visionary direction of the school are guided by the Superior General, ensuring that the institution maintains the highest standards of structural integrity, educational innovation, and moral grounding.</p>

@@ -8,7 +8,7 @@
 </div>
 
 <section class="page-content" style="padding: 60px 0 100px;">
-    <div class="container" style="max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 1.1rem; color: var(--text-mid);">
+    <div class="container" style="max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 0.95rem; color: var(--text-mid); text-align: justify;">
         <p class="">At Bethania Convent School, Kot-Ise-Khan, our educational philosophy goes beyond textbooks. We are dedicated to nurturing the mind, character, and spirit of every student, guided by a foundational compass that shapes our daily academic life and long-term goals.</p>
         
         <h2 class="" style="margin-top: 2.5rem; color: var(--navy); font-family: var(--font-heading);">Our Motto</h2>
