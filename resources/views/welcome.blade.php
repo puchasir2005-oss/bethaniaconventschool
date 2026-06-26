@@ -67,15 +67,15 @@
 
         <div class="gallery-grid fade-up">
             <div class="gallery-item gallery-item-1" data-parallax>
-                <img src="/images/school_building.png" alt="Bethania Convent School Main Building">
+                <img src="{{ asset('images/school 3.jpeg') }}" alt="Bethania Convent School Main Building">
                 <div class="gallery-overlay"><span class="gallery-caption">Main Academic Block</span></div>
             </div>
             <div class="gallery-item gallery-item-2" data-parallax>
-                <img src="/images/campus_hero.png" alt="Green School Campus">
+                <img src="{{ asset('images/school 6.jpeg') }}" alt="Green School Campus">
                 <div class="gallery-overlay"><span class="gallery-caption">Green Campus</span></div>
             </div>
             <div class="gallery-item gallery-item-3" data-parallax>
-                <img src="/images/students_activities.png" alt="Students in Activities">
+                <img src="{{ asset('images/carate 1.jpeg') }}" alt="Students in Activities">
                 <div class="gallery-overlay"><span class="gallery-caption">Student Activities</span></div>
             </div>
             <div class="gallery-item gallery-item-4" data-parallax>
@@ -184,7 +184,7 @@
             </div>
 
             <div class="sports-image fade-up fade-up-delay-2" data-parallax>
-                <img src="/images/students_activities.png" alt="Bethania Sports Activities">
+                <img src="{{ asset('images/carate 1.jpeg') }}" alt="Bethania Sports Activities">
             </div>
         </div>
     </div>
