@@ -51,13 +51,7 @@
                     'reception.jpeg' => 'Reception Area',
                     'teachers.jpeg' => 'Our Teachers',
                     'rank holders.jpeg' => 'Rank Holders',
-                    'ek ped.jpeg' => 'Plantation Drive' ,
-                    'science exihibition.mp4'=> 'Science Exhibition',
-                    'teachers day.mp4'=> 'Teachers Day',
-                    'memory test.mp4'=>'Memory Test',
-                    'colouring competion.mp4'=>'Colouring Competition',
-                    'flag competition.mp4'=>'Flag Competition',
-                    'science exibition.mp4'=>'Science Exhibition'
+                    'ek ped.jpeg' => 'Plantation Drive'
 
                 ];
             @endphp
