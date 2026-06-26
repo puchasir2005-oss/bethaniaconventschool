@@ -50,11 +50,7 @@
                     'reception.jpeg' => 'Reception Area',
                     'teachers.jpeg' => 'Our Teachers',
                     'rank holders.jpeg' => 'Rank Holders',
-                    'ek ped.jpeg' => 'Plantation Drive',
-                    'classroom_modern.png' => 'Modern Classroom',
-                    'event1.png' => 'School Event',
-                    'event2.png' => 'School Event',
-                    'event3.png' => 'School Event'
+                    'ek ped.jpeg' => 'Plantation Drive'
                 ];
             @endphp
 
