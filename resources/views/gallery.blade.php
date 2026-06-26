@@ -68,7 +68,7 @@
             @endphp
             <div class="gallery-item-full" style="position: relative; border-radius: 12px; overflow: hidden; height: 250px; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer;" onclick="openLightbox('/images/{{ $image }}', '{{ $alt }}', {{ $isVideo ? 'true' : 'false' }})">
                 @if($isVideo)
-                    <video src="/images/{{ $image }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause()"></video>
+                    <video src="/images/{{ $image }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" muted loop playsinline preload="none" poster="/images/school_logo.png" onmouseover="this.play()" onmouseout="this.pause()"></video>
                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: rgba(0,0,0,0.6); border-radius: 50%; display: flex; align-items: center; justify-content: center; pointer-events: none;">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
                     </div>
