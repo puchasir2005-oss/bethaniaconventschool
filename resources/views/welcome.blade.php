@@ -79,11 +79,11 @@
                 <div class="gallery-overlay"><span class="gallery-caption">Student Activities</span></div>
             </div>
             <div class="gallery-item gallery-item-4" data-parallax>
-                <img src="/images/classroom_modern.png" alt="Modern Smart Classroom">
-                <div class="gallery-overlay"><span class="gallery-caption">Smart Classrooms</span></div>
+                <img src="{{ asset('images/computer lab.jpeg') }}" alt="Computer Lab">
+                <div class="gallery-overlay"><span class="gallery-caption">Computer Lab</span></div>
             </div>
             <div class="gallery-item gallery-item-5" data-parallax>
-                <img src="/images/event1.png" alt="School Events">
+                <img src="{{ asset('images/fancy dress cometition.jpeg') }}" alt="School Events">
                 <div class="gallery-overlay"><span class="gallery-caption">School Events</span></div>
             </div>
         </div>
