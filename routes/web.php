@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdmissionController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ExamNotificationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,3 +24,22 @@ Route::get('/programs', function () {
 Route::get('/gallery', function () {
     return view('gallery');
 });
+
+// Admission
+Route::get('/admission', [AdmissionController::class, 'showForm']);
+Route::post('/admission', [AdmissionController::class, 'store']);
+
+// Admin Auth
+Route::get('/admin/login', [AdminController::class, 'showLogin']);
+Route::post('/admin/login', [AdminController::class, 'login']);
+Route::post('/admin/logout', [AdminController::class, 'logout']);
+
+// Admin Dashboard (protected)
+Route::middleware('admin')->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+    Route::post('/admin/exam-notifications', [ExamNotificationController::class, 'store']);
+    Route::delete('/admin/exam-notifications/{id}', [ExamNotificationController::class, 'destroy']);
+});
+
+// API for scrolling ticker
+Route::get('/api/exam-notifications', [ExamNotificationController::class, 'getActive']);

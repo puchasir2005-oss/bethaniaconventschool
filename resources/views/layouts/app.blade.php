@@ -233,6 +233,7 @@
                     Run by the Sisters of St. Martha (SMC), Pala, Kerala.
                 </p>
                 <div class="footer-motto">&ldquo;Lighted for Life&rdquo;</div>
+                <a href="/admin/login" class="footer-admin-link">Admin Login</a>
             </div>
         </div>
     </footer>
@@ -483,7 +484,52 @@
             // Initial state
             heroBgImg.style.transform = 'translate(0px, 0px) scale(1.05)';
         }
+
+        // =============================================
+        // EXAM NOTIFICATION TICKER
+        // =============================================
+        (function() {
+            fetch('/api/exam-notifications')
+                .then(function(res) { return res.json(); })
+                .then(function(notifications) {
+                    if (notifications.length === 0) return;
+
+                    var ticker = document.getElementById('notificationTicker');
+                    var track = document.getElementById('tickerTrack');
+                    if (!ticker || !track) return;
+
+                    var html = '';
+                    notifications.forEach(function(n) {
+                        var link = n.timetable_url
+                            ? '<a href="' + n.timetable_url + '" target="_blank" class="ticker-item">'
+                            : '<span class="ticker-item">';
+                        var close = n.timetable_url ? '</a>' : '</span>';
+
+                        html += link +
+                            '<span class="ticker-icon">📋</span>' +
+                            '<span class="ticker-text">' + n.title + ' — Exam starts: ' + n.exam_start_date + '</span>' +
+                            (n.timetable_url ? '<span class="ticker-pdf-badge">📥 Download Timetable</span>' : '') +
+                            close;
+                    });
+
+                    // Duplicate for seamless looping
+                    track.innerHTML = html + html;
+                    ticker.classList.add('ticker-visible');
+                })
+                .catch(function() {});
+        })();
     </script>
+
+    <!-- NOTIFICATION TICKER BAR -->
+    <div class="notification-ticker" id="notificationTicker">
+        <div class="ticker-label">
+            <span class="ticker-label-icon">🔔</span>
+            <span>NOTICE</span>
+        </div>
+        <div class="ticker-wrapper">
+            <div class="ticker-track" id="tickerTrack"></div>
+        </div>
+    </div>
 </body>
 
 </html>

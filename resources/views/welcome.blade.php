@@ -17,7 +17,7 @@
         </p>
         <div class="hero-actions">
             <a href="/about" class="btn btn-primary">Explore Our School</a>
-            <a href="#contact" class="btn btn-outline">Apply for Admission</a>
+            <a href="/admission" class="btn btn-outline">Apply for Admission</a>
         </div>
     </div>
 
@@ -201,7 +201,7 @@
             Give your child an education that truly matters &mdash; one that lights their way through life. Join us at Bethania Convent School, Kot-Ise-Khan.
         </p>
         <div class="cta-actions fade-up fade-up-delay-3">
-            <a href="mailto:bethaniaconventschool&#64;gmail.com" class="btn btn-primary">Apply for Admission</a>
+            <a href="/admission" class="btn btn-primary">Apply for Admission</a>
             <a href="tel:+911234567890" class="btn btn-outline">Call Us Today</a>
         </div>
     </div>

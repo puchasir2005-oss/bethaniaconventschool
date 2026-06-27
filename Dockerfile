@@ -30,6 +30,14 @@ RUN cp .env.example .env
 RUN php artisan key:generate
 RUN touch database/database.sqlite
 RUN php artisan migrate --force
+RUN php artisan db:seed --force
+
+# Create storage symlink for PDF uploads
+RUN php artisan storage:link
+
+# Create writable directories for uploads
+RUN mkdir -p storage/app/public/timetables
+RUN chmod -R 775 storage bootstrap/cache
 
 # Expose port (Render sets the PORT environment variable, defaults to 10000)
 EXPOSE 10000
