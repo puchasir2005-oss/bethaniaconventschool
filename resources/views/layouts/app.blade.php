@@ -85,7 +85,7 @@
                     <a href="/gallery" onclick="closeMenuOverlay()">Gallery</a>
                     <a href="/#campus" onclick="closeMenuOverlay()">Campus</a>
                     <a href="/#sports" onclick="closeMenuOverlay()">Sports</a>
-                    <a href="#contact" onclick="closeMenuOverlay()">Admissions</a>
+                    <a href="/admission" onclick="closeMenuOverlay()">Admissions</a>
                 </nav>
             </div>
             <div class="menu-overlay-socials">
@@ -125,7 +125,7 @@
             <div class="menu-overlay-quicklinks">
                 <div class="menu-overlay-quicklinks-title">Quick Links</div>
                 <a href="#contact" onclick="closeMenuOverlay()">Contact Us</a>
-                <a href="#contact" onclick="closeMenuOverlay()">Admissions</a>
+                <a href="/admission" onclick="closeMenuOverlay()">Admissions</a>
                 <a href="https://www.instagram.com/bethaniaconventschool" target="_blank">Instagram</a>
             </div>
             <div class="menu-overlay-footer">
@@ -500,16 +500,11 @@
 
                     var html = '';
                     notifications.forEach(function(n) {
-                        var link = n.timetable_url
-                            ? '<a href="' + n.timetable_url + '" target="_blank" class="ticker-item">'
-                            : '<span class="ticker-item">';
-                        var close = n.timetable_url ? '</a>' : '</span>';
-
-                        html += link +
+                        html += '<span class="ticker-item">' +
                             '<span class="ticker-icon">📋</span>' +
                             '<span class="ticker-text">' + n.title + ' — Exam starts: ' + n.exam_start_date + '</span>' +
-                            (n.timetable_url ? '<span class="ticker-pdf-badge">📥 Download Timetable</span>' : '') +
-                            close;
+                            (n.timetable_url ? '<span class="ticker-pdf-badge">📄 PDF Available</span>' : '') +
+                            '</span>';
                     });
 
                     // Duplicate for seamless looping
@@ -521,7 +516,7 @@
     </script>
 
     <!-- NOTIFICATION TICKER BAR -->
-    <div class="notification-ticker" id="notificationTicker">
+    <a href="/notifications" class="notification-ticker" id="notificationTicker" style="text-decoration: none;">
         <div class="ticker-label">
             <span class="ticker-label-icon">🔔</span>
             <span>NOTICE</span>
@@ -529,7 +524,7 @@
         <div class="ticker-wrapper">
             <div class="ticker-track" id="tickerTrack"></div>
         </div>
-    </div>
+    </a>
 </body>
 
 </html>

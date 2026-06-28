@@ -55,6 +55,11 @@
                 Exam Notifications
                 <span class="admin-tab-badge">{{ $notifications->count() }}</span>
             </button>
+            <button class="admin-tab" onclick="switchTab('events')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Events
+                <span class="admin-tab-badge">{{ $events->count() }}</span>
+            </button>
         </div>
 
         <!-- ENQUIRIES TAB -->
@@ -175,6 +180,86 @@
                 @endif
             </div>
         </div>
+
+        <!-- EVENTS TAB -->
+        <div class="admin-tab-content" id="tab-events">
+            <!-- CREATE EVENT FORM -->
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h2>Add New Event</h2>
+                </div>
+                <form action="/admin/events" method="POST" enctype="multipart/form-data" class="admin-notification-form">
+                    @csrf
+                    <div class="form-row" style="gap: 1rem;">
+                        <div class="form-group" style="flex: 2;">
+                            <label for="event_title" class="form-label">Event Title</label>
+                            <input type="text" id="event_title" name="title" class="form-input" placeholder="e.g., Annual Day Celebration 2026" required>
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label for="event_date" class="form-label">Event Date</label>
+                            <input type="date" id="event_date" name="event_date" class="form-input">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="event_description" class="form-label">Description</label>
+                        <textarea id="event_description" name="description" class="form-input" rows="3" placeholder="Briefly describe the event..." style="resize: vertical;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="poster_image" class="form-label">Event Poster Image</label>
+                        <input type="file" id="poster_image" name="poster_image" class="form-input form-file-input" accept="image/jpeg,image/png,image/webp" required>
+                        <small class="form-hint">Required. JPEG, PNG or WebP. Max 5MB. This poster will appear on the homepage carousel.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Add Event
+                    </button>
+                </form>
+            </div>
+
+            <!-- EXISTING EVENTS -->
+            <div class="admin-card" style="margin-top: 1.5rem;">
+                <div class="admin-card-header">
+                    <h2>All Events</h2>
+                    <span class="admin-card-count">{{ $events->count() }} total</span>
+                </div>
+
+                @if($events->isEmpty())
+                    <div class="admin-empty-state">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        <p>No events added yet. Create your first event above.</p>
+                    </div>
+                @else
+                    <div class="admin-events-grid">
+                        @foreach($events as $event)
+                            <div class="admin-event-card">
+                                <div class="admin-event-poster">
+                                    <img src="{{ asset('storage/' . $event->poster_image) }}" alt="{{ $event->title }}">
+                                </div>
+                                <div class="admin-event-info">
+                                    <div class="admin-notification-title">{{ $event->title }}</div>
+                                    <div class="admin-notification-meta">
+                                        @if($event->event_date)
+                                            <span>📅 {{ $event->event_date->format('d M Y') }}</span>
+                                        @endif
+                                        <span>{{ $event->is_active ? '🟢 Active' : '🔴 Inactive' }}</span>
+                                    </div>
+                                    @if($event->description)
+                                        <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0.5rem; line-height: 1.5;">{{ Str::limit($event->description, 120) }}</p>
+                                    @endif
+                                </div>
+                                <form action="/admin/events/{{ $event->id }}" method="POST" onsubmit="return confirm('Delete this event?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="admin-delete-btn" title="Delete">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                    </button>
+                                </form>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </div>
     </div>
 
     <script>
@@ -184,14 +269,63 @@
             document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
 
             // Add active to selected
+            var tabs = document.querySelectorAll('.admin-tab');
             if (tab === 'enquiries') {
-                document.querySelectorAll('.admin-tab')[0].classList.add('active');
+                tabs[0].classList.add('active');
                 document.getElementById('tab-enquiries').classList.add('active');
-            } else {
-                document.querySelectorAll('.admin-tab')[1].classList.add('active');
+            } else if (tab === 'notifications') {
+                tabs[1].classList.add('active');
                 document.getElementById('tab-notifications').classList.add('active');
+            } else if (tab === 'events') {
+                tabs[2].classList.add('active');
+                document.getElementById('tab-events').classList.add('active');
             }
         }
     </script>
+
+    <style>
+        .admin-events-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .admin-event-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            background: var(--cream, #f5f5f5);
+            transition: background 0.2s;
+        }
+        .admin-event-card:hover {
+            background: #eee;
+        }
+        .admin-event-poster {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .admin-event-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .admin-event-info {
+            flex: 1;
+            min-width: 0;
+        }
+        @media (max-width: 600px) {
+            .admin-event-card {
+                flex-direction: column;
+            }
+            .admin-event-poster {
+                width: 100%;
+                height: 160px;
+            }
+        }
+    </style>
 </body>
 </html>

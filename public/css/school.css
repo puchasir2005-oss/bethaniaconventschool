@@ -222,13 +222,25 @@ a {
     line-height: 1;
 }
 
-/* Inner page navbar: dark text initially, white after scroll */
+/* Color-changing animation for school name on inner pages */
+@keyframes schoolNameColorCycle {
+    0%   { color: #d32f2f; }    /* Red */
+    15%  { color: #1565c0; }    /* Blue */
+    30%  { color: #2e7d32; }    /* Green */
+    45%  { color: #f57f17; }    /* Amber */
+    60%  { color: #6a1b9a; }    /* Purple */
+    75%  { color: #00838f; }    /* Teal */
+    90%  { color: #c62828; }    /* Dark Red */
+    100% { color: #d32f2f; }    /* Red (loop) */
+}
+
+/* Inner page navbar: color-changing school name, red subtitle */
 .inner-page .navbar .school-name {
-    color: #444;
+    animation: schoolNameColorCycle 6s ease-in-out infinite;
     transition: color 0.35s ease;
 }
 .inner-page .navbar .school-subtitle {
-    color: #888;
+    color: var(--gold);
     transition: color 0.35s ease;
 }
 .inner-page .navbar .nav-action-link {
@@ -237,6 +249,7 @@ a {
 }
 /* When scrolled, revert to white (dark navbar bg is active) */
 .inner-page .navbar.scrolled .school-name {
+    animation: none;
     color: var(--white);
 }
 .inner-page .navbar.scrolled .school-subtitle {
@@ -306,6 +319,11 @@ a {
 }
 .nav-action-menu:hover {
     background: var(--orange);
+}
+
+/* Menu open state — dark navbar background so white text stays visible */
+.menu-overlay-open .navbar {
+    background: rgba(26, 26, 26, 0.97);
 }
 
 /* Menu open state — X icon */
@@ -666,7 +684,6 @@ a {
 
 /* Justified text for all content paragraphs */
 .section-lead,
-.region-desc,
 .cta-text,
 .page-content p,
 .about-text p,
@@ -1891,8 +1908,15 @@ section {
         padding: 5.5rem 2rem 2rem;
     }
     .hero-bg img {
+        width: 100%;
         height: 100%;
-        object-position: 35% 30%;
+        object-fit: cover;
+        object-position: 63% center;
+    }
+    .hero-bg {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
     }
     .hero-content {
         padding: 0 1.5rem 1.5rem;
@@ -1910,17 +1934,27 @@ section {
     .hero-stats {
         position: relative;
         width: 100%;
-        margin-top: 1rem;
+        margin-top: 0;
         border-radius: 0;
         background: rgba(26, 26, 26, 0.95);
     }
     .hero {
         max-height: none;
         min-height: 100vh;
+        min-height: 100dvh;
         height: auto;
         flex-direction: column;
         align-items: stretch;
         justify-content: flex-end;
+    }
+    .hero-overlay {
+        background: linear-gradient(
+            to top,
+            rgba(26, 26, 26, 0.95) 0%,
+            rgba(26, 26, 26, 0.7) 35%,
+            rgba(26, 26, 26, 0.3) 60%,
+            rgba(26, 26, 26, 0.15) 100%
+        );
     }
     .about-grid,
     .sports-layout {
@@ -2551,6 +2585,91 @@ section {
         gap: 0.35rem;
     }
 }
+/* ========================
+   EVENTS CAROUSEL
+   ======================== */
+.events-scroll-container {
+    width: 100%;
+    overflow: hidden;
+    padding: 0.5rem 0;
+}
+.events-scroll-track {
+    display: flex;
+    gap: 1.5rem;
+    animation: events-scroll 25s linear infinite;
+    width: max-content;
+}
+.events-scroll-track:hover {
+    animation-play-state: paused;
+}
+.event-carousel-card {
+    flex-shrink: 0;
+    width: 280px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--white);
+    transition: transform 0.3s ease, background 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+.event-carousel-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    background: rgba(255,255,255,0.12);
+}
+.event-carousel-poster {
+    width: 100%;
+    height: 340px;
+    overflow: hidden;
+}
+.event-carousel-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.event-carousel-card:hover .event-carousel-poster img {
+    transform: scale(1.08);
+}
+.event-carousel-info {
+    padding: 1rem 1.25rem;
+}
+.event-carousel-title {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.event-carousel-date {
+    font-size: 0.78rem;
+    color: var(--gold-light);
+    font-weight: 500;
+}
+
+@keyframes events-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .event-carousel-card {
+        width: 220px;
+    }
+    .event-carousel-poster {
+        height: 270px;
+    }
+    .events-scroll-track {
+        gap: 1rem;
+    }
+}
 
 /* ========================
    NOTIFICATION TICKER
@@ -2567,6 +2686,12 @@ section {
     align-items: center;
     box-shadow: 0 -2px 20px rgba(0,0,0,0.25);
     overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+.notification-ticker:hover {
+    background: linear-gradient(90deg, #2d1b3d, #3d2b4d, #2d1b3d);
 }
 .notification-ticker.ticker-visible {
     display: flex;

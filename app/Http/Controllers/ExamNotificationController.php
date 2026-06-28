@@ -45,6 +45,15 @@ class ExamNotificationController extends Controller
         return redirect('/admin/dashboard')->with('success', 'Notification deleted successfully!');
     }
 
+    public function index()
+    {
+        $notifications = ExamNotification::where('is_active', true)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('notifications', compact('notifications'));
+    }
+
     public function getActive()
     {
         $notifications = ExamNotification::where('is_active', true)

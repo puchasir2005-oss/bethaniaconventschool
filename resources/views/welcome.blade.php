@@ -90,6 +90,59 @@
     </div>
 </section>
 
+<!-- EVENTS IN BCS — Auto-scrolling poster carousel -->
+<section class="events-carousel-section" id="eventsCarousel" style="padding: 5rem 0; background: var(--navy-dark); overflow: hidden; display: none;">
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <div class="section-eyebrow fade-up" style="color: var(--gold-light);">What's Happening</div>
+                <h2 class="section-title fade-up fade-up-delay-1" style="color: var(--white); margin-bottom:0;">Events at <em>BCS</em></h2>
+            </div>
+            <a href="/events" class="btn btn-outline fade-up" style="border-color: rgba(255,255,255,0.3); color: var(--white);">
+                View All Events
+            </a>
+        </div>
+    </div>
+
+    <div class="events-scroll-container">
+        <div class="events-scroll-track" id="eventsTrack">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+</section>
+
+<script>
+(function() {
+    fetch('/api/events')
+        .then(function(res) { return res.json(); })
+        .then(function(events) {
+            if (events.length === 0) return;
+
+            var section = document.getElementById('eventsCarousel');
+            var track = document.getElementById('eventsTrack');
+            if (!section || !track) return;
+
+            var html = '';
+            events.forEach(function(e) {
+                html += '<a href="/events" class="event-carousel-card">' +
+                    '<div class="event-carousel-poster">' +
+                    '<img src="' + e.poster_url + '" alt="' + e.title + '" loading="lazy">' +
+                    '</div>' +
+                    '<div class="event-carousel-info">' +
+                    '<div class="event-carousel-title">' + e.title + '</div>' +
+                    (e.event_date ? '<div class="event-carousel-date">' + e.event_date + '</div>' : '') +
+                    '</div>' +
+                    '</a>';
+            });
+
+            // Duplicate for seamless infinite scrolling
+            track.innerHTML = html + html;
+            section.style.display = 'block';
+        })
+        .catch(function() {});
+})();
+</script>
+
 <!-- GALLERY PREVIEW SECTION -->
 <section class="gallery-preview-section" style="padding: var(--spacing-xxl) 0; background: var(--color-white);">
     <div class="container">

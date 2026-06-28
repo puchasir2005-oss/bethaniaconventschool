@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AdmissionEnquiry;
 use App\Models\ExamNotification;
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,8 +42,9 @@ class AdminController extends Controller
     {
         $enquiries = AdmissionEnquiry::orderBy('created_at', 'desc')->get();
         $notifications = ExamNotification::orderBy('created_at', 'desc')->get();
+        $events = Event::orderBy('created_at', 'desc')->get();
 
-        return view('admin.dashboard', compact('enquiries', 'notifications'));
+        return view('admin.dashboard', compact('enquiries', 'notifications', 'events'));
     }
 
     public function logout(Request $request)
