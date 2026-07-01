@@ -15,10 +15,12 @@ class AdmissionController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'parent_name' => 'required|string|max:255',
+            'father_name' => 'required|string|max:255',
+            'mother_name' => 'required|string|max:255',
             'student_name' => 'required|string|max:255',
             'student_age' => 'required|integer|min:2|max:20',
             'admission_class' => 'required|string|max:50',
+            'previous_school' => 'nullable|string|max:255',
             'parent_phone' => 'required|string|max:15',
         ]);
 

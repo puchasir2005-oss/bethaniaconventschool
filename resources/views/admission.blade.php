@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@push('body-class', 'inner-page')
 @section('content')
 <!-- ADMISSION FORM SECTION -->
 <section class="admission-section">
@@ -37,13 +37,20 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="parent_name" class="form-label">Parent / Guardian Name</label>
-                    <input type="text" id="parent_name" name="parent_name" class="form-input" placeholder="Enter parent's full name" value="{{ old('parent_name') }}" required>
-                </div>
-
-                <div class="form-group">
                     <label for="student_name" class="form-label">Student Name</label>
                     <input type="text" id="student_name" name="student_name" class="form-input" placeholder="Enter student's full name" value="{{ old('student_name') }}" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="father_name" class="form-label">Father's Name</label>
+                        <input type="text" id="father_name" name="father_name" class="form-input" placeholder="Enter father's full name" value="{{ old('father_name') }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mother_name" class="form-label">Mother's Name</label>
+                        <input type="text" id="mother_name" name="mother_name" class="form-input" placeholder="Enter mother's full name" value="{{ old('mother_name') }}" required>
+                    </div>
                 </div>
 
                 <div class="form-row">
@@ -64,6 +71,11 @@
                             @endfor
                         </select>
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="previous_school" class="form-label">Previous School (if any)</label>
+                    <input type="text" id="previous_school" name="previous_school" class="form-input" placeholder="Enter previous school name" value="{{ old('previous_school') }}">
                 </div>
 
                 <div class="form-group">

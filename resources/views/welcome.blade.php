@@ -4,10 +4,17 @@
 <!-- HERO SECTION -->
 <section class="hero" id="home">
     <div class="hero-bg">
-        <img src="/images/hero-desk.png" alt="Bethania Convent School Campus at Dusk">
+        <picture style="display: block; width: 100%; height: 100%;">
+            <source media="(max-width: 768px)" srcset="/images/hero-deskmobile.png">
+            <img src="/images/hero-desk.png" alt="Bethania Convent School Campus at Dusk">
+        </picture>
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
+        <div class="hero-welcome-text">
+            <span>WELCOME TO BETHANIA</span>
+            <div class="hero-welcome-line"></div>
+        </div>
         <h1 class="hero-title">
             Where Every Child is<br>
             <em>Lighted for Life</em>
@@ -24,20 +31,32 @@
     <div class="hero-stats">
         <div class="hero-stats-inner">
             <div class="stat-item">
+                <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path><path d="M2 17h20"></path><path d="M6 8v9"></path></svg>
+                </div>
                 <div class="stat-number" id="counter-1">188+</div>
-                <div class="stat-label">Community Posts</div>
+                <div class="stat-label">Community<br>Posts</div>
             </div>
             <div class="stat-item">
+                <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </div>
                 <div class="stat-number">4</div>
-                <div class="stat-label">Faculty Regions</div>
+                <div class="stat-label">Faculty<br>Regions</div>
             </div>
             <div class="stat-item">
+                <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+                </div>
                 <div class="stat-number">8+</div>
-                <div class="stat-label">Sports Disciplines</div>
+                <div class="stat-label">Sports<br>Disciplines</div>
             </div>
             <div class="stat-item">
+                <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                </div>
                 <div class="stat-number">100%</div>
-                <div class="stat-label">Holistic Development</div>
+                <div class="stat-label">Holistic<br>Development</div>
             </div>
         </div>
     </div>
@@ -248,14 +267,14 @@
     <div class="container" style="position:relative;z-index:1;text-align:center;">
         <div class="cta-eyebrow fade-up">Begin the Journey</div>
         <h2 class="cta-title fade-up fade-up-delay-1">
-            Ready to Become<br>Part of the Bethania Family?
+            Are You Ready to Become<br>Part of the Bethania Family?
         </h2>
         <p class="cta-text fade-up fade-up-delay-2">
             Give your child an education that truly matters &mdash; one that lights their way through life. Join us at Bethania Convent School, Kot-Ise-Khan.
         </p>
         <div class="cta-actions fade-up fade-up-delay-3">
             <a href="/admission" class="btn btn-primary">Apply for Admission</a>
-            <a href="tel:+911234567890" class="btn btn-outline">Call Us Today</a>
+            <a href="tel:9463651294" class="btn btn-outline">Call Us Today</a>
         </div>
     </div>
 </section>

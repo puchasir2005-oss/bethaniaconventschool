@@ -82,10 +82,12 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Date</th>
-                                    <th>Parent Name</th>
                                     <th>Student Name</th>
+                                    <th>Father's Name</th>
+                                    <th>Mother's Name</th>
                                     <th>Age</th>
                                     <th>Class</th>
+                                    <th>Prev School</th>
                                     <th>Phone</th>
                                 </tr>
                             </thead>
@@ -94,10 +96,12 @@
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $enquiry->created_at->format('d M Y, h:i A') }}</td>
-                                        <td><strong>{{ $enquiry->parent_name }}</strong></td>
-                                        <td>{{ $enquiry->student_name }}</td>
+                                        <td><strong>{{ $enquiry->student_name }}</strong></td>
+                                        <td>{{ $enquiry->father_name }}</td>
+                                        <td>{{ $enquiry->mother_name }}</td>
                                         <td>{{ $enquiry->student_age }}</td>
                                         <td><span class="admin-badge">{{ $enquiry->admission_class }}</span></td>
+                                        <td>{{ $enquiry->previous_school ?? '-' }}</td>
                                         <td><a href="tel:{{ $enquiry->parent_phone }}" class="admin-phone-link">{{ $enquiry->parent_phone }}</a></td>
                                     </tr>
                                 @endforeach

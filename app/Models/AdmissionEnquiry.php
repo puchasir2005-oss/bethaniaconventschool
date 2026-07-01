@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class AdmissionEnquiry extends Model
 {
     protected $fillable = [
-        'parent_name',
+        'father_name',
+        'mother_name',
         'student_name',
         'student_age',
         'admission_class',
+        'previous_school',
         'parent_phone',
     ];
 }
